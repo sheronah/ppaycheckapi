@@ -1,0 +1,67 @@
+# Test your FastAPI endpoints
+
+POST http://127.0.0.1:8000/signup
+Accept: application/json
+
+{"email":"phillip@gmail.com","password":"123456"}
+
+###
+POST http://127.0.0.1:8000/login
+Content-Type: application/x-www-form-urlencoded
+
+username=phillip@gmail.com&password=123456
+
+###
+GET http://127.0.0.1:8000/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJwaGlsbGlwQGdtYWlsLmNvbSIsImV4cCI6MTcyNTQ0OTQyNn0.2fEH05DAkLZN7Rw4vQsbjFOj0BBYoycgG-GOYfVAL8s
+
+###
+POST  http://127.0.0.1:8000/income/create_income
+Accept: application/json
+
+{"amount":500.23,"source":"humantrafikking","frequency":"monthly","date_time":"2024-09-23T14:30:00"}
+
+###
+GET http://127.0.0.1:8000/income/get_income
+Accept: application/json
+
+
+###
+POST http://127.0.0.1:8000/income/get_single_income/66d973b7d2c31f7aff70225d
+Accept: application/json
+
+
+
+###
+PUT http://127.0.0.1:8000/income/update_income/66d973b7d2c31f7aff70225d
+Accept: application/json
+
+{"amount": 2550.23, "source": "Drug Lord", "frequency": "Daily", "date_time": "2024-01-02 05:00:01"}
+
+###--------end
+###-------Expenses------
+###
+
+POST http://127.0.0.1:8000/expenses/create
+Accept: application/json
+
+{"amount": 312500.15, "description": "Ashabahebwa", "due_date": "2024-08-12 15:00:00", "status": "paid", "recurring": true}
+
+###
+GET http://127.0.0.1:8000/expenses/read/pending
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/expenses/read/previous_month
+Accept: application/json
+
+###
+PUT http://127.0.0.1:8000/expenses/update/66dac7b91fb0b477838b113f
+Accept: application/json
+
+{"amount":2000.00,"description":"office supplies","due_date": "2024-08-12 15:00:00", "status": "paid", "recurring": true}
+
+
+###
+GET http://127.0.0.1:8000/expenses/read/recurring
+Accept: application/json
