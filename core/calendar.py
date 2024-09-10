@@ -6,9 +6,6 @@ from middleware.database import reminder_collection, calendar_event_collection
 from models.calendar import Reminder, CalendarEvent, ReminderUpdate, ReminderA
 from .datefunc import normal_id
 
-# Todo: making a more custom and simplified query with projections, ('$' is called an aggregate expression in
-#  mongodb, '0' mean field will not appear and '1' means
-#  field will appear after execution of query for what you want)
 
 projection_cal_events = {
     "_id": 0,

@@ -13,17 +13,11 @@ async def create_reminder(reminder: Reminder):
     reminder_id = await add_reminder(reminder)
     return {"id": reminder_id}
 
-
-# Todo: note, i add the id field in the endpoint's name as it was not there unless you just had a conflict of
-#   of what exacting you want to execute, mind ur step
 @router.get("/reminders/read/{reminder_id}", response_model=ReminderA)
 async def read_reminders(reminder_id: int):
     reminders = await get_reminders(reminder_id)
     return reminders
 
-
-# Todo: note the changes in the function parameter on the the Reminder model, and also the response model usage,
-#   am now using the ReminderA
 @router.put("/reminders/update/{reminder_id}", response_model=ReminderA)
 async def modify_reminder(reminder_id: int, reminder: ReminderUpdate):
     updated_reminder = await update_reminder(reminder_id, reminder)
