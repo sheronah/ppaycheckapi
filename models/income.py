@@ -3,14 +3,13 @@ from typing import Optional
 from datetime import datetime
 
 class Income(BaseModel):
-    id: Optional[str] = Field(None, alias="_id")
     amount: float
     source: str
     frequency: str  # e.g., "monthly", "weekly"
     date_time: datetime
 
 class IncomeA(BaseModel):
-    id: Optional[str] = Field(None, alias="id")
+    id: int
     amount: float
     source: str
     frequency: str  # e.g., "monthly", "weekly"

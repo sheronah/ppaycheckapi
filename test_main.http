@@ -27,13 +27,13 @@ Accept: application/json
 
 
 ###
-POST http://127.0.0.1:8000/income/get_single_income/66d973b7d2c31f7aff70225d
+POST http://127.0.0.1:8000/income/get_single_income/1
 Accept: application/json
 
 
 
 ###
-PUT http://127.0.0.1:8000/income/update_income/66d973b7d2c31f7aff70225d
+PUT http://127.0.0.1:8000/income/update_income/1
 Accept: application/json
 
 {"amount": 2550.23, "source": "Drug Lord", "frequency": "Daily", "date_time": "2024-01-02 05:00:01"}
@@ -45,23 +45,75 @@ Accept: application/json
 POST http://127.0.0.1:8000/expenses/create
 Accept: application/json
 
-{"amount": 312500.15, "description": "Ashabahebwa", "due_date": "2024-08-12 15:00:00", "status": "paid", "recurring": true}
+
+{"amount": 312500.15, "description": "Ashabahebwa", "due_date": "2024-08-12 15:00:00", "status": "paid", "recurring": true,"frequency":"monthly"}
 
 ###
-GET http://127.0.0.1:8000/expenses/read/pending
+
+GET 127.0.0.1:8000/expenses/read/pending
 Accept: application/json
 
+
 ###
+
 GET http://127.0.0.1:8000/expenses/read/previous_month
 Accept: application/json
 
 ###
-PUT http://127.0.0.1:8000/expenses/update/66dac7b91fb0b477838b113f
+PUT http://127.0.0.1:8000/expenses/update/1
 Accept: application/json
 
-{"amount":2000.00,"description":"office supplies","due_date": "2024-08-12 15:00:00", "status": "paid", "recurring": true}
+{"amount":2000.00,"description":"office supplies","due_date": "2024-08-12 15:00:00", "status": "paid", "recurring": true,"frequency":"weekly"}
 
 
 ###
 GET http://127.0.0.1:8000/expenses/read/recurring
 Accept: application/json
+
+###--------end
+###-------reminders------
+###
+
+POST 127.0.0.1:8000/calendar/reminders/create
+Accept: application/json
+
+{"description":"office supplies","due_date":"2024-08-12 15:01:00","status":"paid","frequency":"monthly","reminder_dates":["2024-08-12 15:01:00"]}
+
+
+###
+GET 127.0.0.1:8000/calendar/reminders/read/1
+Accept: application/json
+
+###
+
+PUT 127.0.0.1:8000/calendar/reminders/update/1
+Accept: application/json
+
+{"description":"cafeteria","due_date":"2024-08-12 15:01:00","status":"pending","frequency":"weekly","reminder_dates":["2024-10-12 15:01:10"]}
+
+
+####-------reminder end
+####--calendere events
+POST 127.0.0.1:8000/calendar/calendar-events/create
+Accept: application/json
+
+{"title":"Gravity Concert", "description":"Doozi Songs Perform live", "start_date": "2024-08-12 15:01:00", "end_date":"2024-09-12 15:01:00", "event_type": "income"}
+
+
+###
+GET 127.0.0.1:8000/calendar/calendar-events/read/1
+Accept: application/json
+
+
+###
+GET 127.0.0.1:8000/calendar/calendar-events/read
+Accept: application/json
+
+
+###
+PUT 127.0.0.1:8000/calendar/calendar-events/update/1
+Accept: application/json
+
+{"title":"Nwagi Concert", "description":"baby live", "start_date": "2024-08-12 15:01:00", "end_date":"2024-09-12 15:01:00", "event_type": "income"}
+
+###

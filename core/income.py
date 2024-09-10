@@ -1,55 +1,46 @@
-# core/income.py
 
-from bson import ObjectId
 
 from middleware.database import income_collection
 from models.income import Income, IncomeUpdate, IncomeA
+from .datefunc import normal_id
+
+projection_income = {
+
+    "_id": 0,
+    "id": "$_id",
+    "amount": 1,
+    "source": 1,
+    "frequency": 1,
+    "date_time": 1
+}
 
 
 async def add_income(income: Income):
-    income = income.dict()
-    result = await income_collection.insert_one(income)
-    return str(result.inserted_id)
+    result = await normal_id(income_collection,income)
+    if result['status']:
+        return result['id']
+
+    return False
 
 
 async def get_all_income():
-    income = await income_collection.find().to_list(10000)
-    final_in = []
-    for i in income:
-        i = dict(i)
-        final_in.append(IncomeA(
-            id=ObjectId(i['_id']).__str__(),
-            amount=i["amount"],
-            source=i['source'],
-            frequency=i['frequency'],
-            date_time=i['date_time'],
-        ))
+    income = await income_collection.find({}, projection_income).to_list(1000)
+    return income
 
-    return final_in
+async def update_income(id: int, income: IncomeUpdate):
+    result = await income_collection.update_one({"_id": id}, {"$set": income.dict(exclude_unset=True)})
 
+    if result.modified_count:
+        updated_income = await income_collection.find_one({"_id": id}, projection_income)
+        if updated_income:
 
-async def update_income(id: str, income: IncomeUpdate):
-    await income_collection.update_one({"_id": ObjectId(id)}, {"$set": income.dict(exclude_unset=True)})
-    rs = await income_collection.find_one({"_id": ObjectId(id)})
+            return IncomeA(**updated_income)
 
-    return IncomeA(
-            id=ObjectId(rs['_id']).__str__(),
-            amount=rs['amount'],
-            source=rs['source'],
-            frequency=rs['frequency'],
-            date_time=rs['date_time'],
-        )
+    return None
 
-
-async def get_income(id: str):
-    rs = await income_collection.find_one({"_id": ObjectId(id)})
+async def get_income(id: int):
+    rs = await income_collection.find_one({"_id": id}, projection_income)
     if rs is None:
         return None
-    else:
-        return IncomeA(
-            id=ObjectId(rs['_id']).__str__(),
-            amount=rs['amount'],
-            source=rs['source'],
-            frequency=rs['frequency'],
-            date_time=rs['date_time'],
-        )
+    return IncomeA(**rs)
+

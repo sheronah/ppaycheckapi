@@ -22,7 +22,7 @@ async def read_all_income():
 
 
 @router.put("/update_income/{id}", response_description="Update an income")
-async def update_income_data(id: str, income: IncomeUpdate):
+async def update_income_data(id: int, income: IncomeUpdate):
     updated_income = await update_income(id, income)
     if updated_income:
         return updated_income
@@ -30,7 +30,7 @@ async def update_income_data(id: str, income: IncomeUpdate):
 
 
 @router.post("/get_single_income/{id}", response_description="Get a single income")
-async def read_single_income(id: str):
+async def read_single_income(id: int):
     rs = await get_income(id)
     if rs:
         return rs

@@ -5,4 +5,6 @@ db = client.trackpays
 users_collection = db.users
 expense_collection = db.expenses
 income_collection = db.incomes
+reminder_collection = db.reminders
+calendar_event_collection = db.calendar_events
 
