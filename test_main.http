@@ -1,119 +1,139 @@
 # Test your FastAPI endpoints
-
-POST http://127.0.0.1:8000/signup
+@rooturl = http://127.0.0.1:8000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJuYW1lcyI6IkhhZSBNYXN0ZXIiLCJlbWFpbCI6ImhhZUBoYWUuY29tIiwiZXhwIjoxNzI2NzI3NTk2fQ.PBukguq5_9vP7ckjMIhsDSekiFtbG93RWrubSxdJPf4
+###
+POST {{rooturl}}/signup
 Accept: application/json
 
-{"email":"phillip@gmail.com","password":"123456"}
+{"first_name":"Hae", "last_name":"Master", "email":"hae@hae.com","password":"123456"}
 
 ###
-POST http://127.0.0.1:8000/login
-Content-Type: application/x-www-form-urlencoded
+POST {{rooturl}}/login
+Content-Type: application/json
 
-username=phillip@gmail.com&password=123456
-
-###
-GET http://127.0.0.1:8000/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJwaGlsbGlwQGdtYWlsLmNvbSIsImV4cCI6MTcyNTQ0OTQyNn0.2fEH05DAkLZN7Rw4vQsbjFOj0BBYoycgG-GOYfVAL8s
+{"email":"hae@hae.com", "password":"123456"}
 
 ###
-POST  http://127.0.0.1:8000/income/create_income
-Accept: application/json
-
-{"amount":500.23,"source":"humantrafikking","frequency":"monthly","date_time":"2024-09-23T14:30:00"}
+GET {{rooturl}}/users/me
+Authorization: Bearer {{token}}
 
 ###
-GET http://127.0.0.1:8000/income/get_income
-Accept: application/json
 
-
-###
-POST http://127.0.0.1:8000/income/get_single_income/1
+POST  {{rooturl}}/income/create_income
+Authorization: Bearer {{token}}
 Accept: application/json
 
 
+{"amount":500.23, "source":"Jungle","frequency":"weekly","date_time":"2024-09-23T14:30:00"}
 
 ###
-PUT http://127.0.0.1:8000/income/update_income/1
+GET {{rooturl}}/income/get_income
+Authorization: Bearer {{token}}
 Accept: application/json
 
-{"amount": 2550.23, "source": "Drug Lord", "frequency": "Daily", "date_time": "2024-01-02 05:00:01"}
+
+###
+POST {{rooturl}}/income/get_single_income/13
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
+
+###
+PUT {{rooturl}}/income/update_income/2
+Authorization: Bearer {{token}}
+Accept: application/json
+
+{"amount": 15000.0, "source": "LAND GRABBING"}
 
 ###--------end
 ###-------Expenses------
 ###
 
-POST http://127.0.0.1:8000/expenses/create
+POST {{rooturl}}/expenses/create
+Authorization: Bearer {{token}}
 Accept: application/json
 
-
-{"amount": 312500.15, "description": "Ashabahebwa", "due_date": "2024-08-12 15:00:00", "status": "paid", "recurring": true,"frequency":"monthly"}
-
-###
-
-GET 127.0.0.1:8000/expenses/read/pending
-Accept: application/json
+{"amount": 312500.15, "description": "Ashabahebwa", "due_date": "2024-08-12 15:00:00", "status": "pending", "frequency": "Weekly","recurring": true}
 
 
 ###
-
-GET http://127.0.0.1:8000/expenses/read/previous_month
+GET {{rooturl}}/expenses/read/pending
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
-PUT http://127.0.0.1:8000/expenses/update/1
+GET {{rooturl}}/expenses/read/previous_month
+Authorization: Bearer {{token}}
 Accept: application/json
-
-{"amount":2000.00,"description":"office supplies","due_date": "2024-08-12 15:00:00", "status": "paid", "recurring": true,"frequency":"weekly"}
 
 
 ###
-GET http://127.0.0.1:8000/expenses/read/recurring
+PUT {{rooturl}}/expenses/update/1
+Authorization: Bearer {{token}}
 Accept: application/json
+
+{"amount":8000.00, "recurring": false}
+
+
+###
+GET {{rooturl}}/expenses/read/recurring/true
+Authorization: Bearer {{token}}
+Accept: application/json
+
 
 ###--------end
 ###-------reminders------
 ###
 
-POST 127.0.0.1:8000/calendar/reminders/create
+
+POST {{rooturl}}/calendar/reminders/create
+Authorization: Bearer {{token}}
 Accept: application/json
 
-{"description":"office supplies","due_date":"2024-08-12 15:01:00","status":"paid","frequency":"monthly","reminder_dates":["2024-08-12 15:01:00"]}
-
-
-###
-GET 127.0.0.1:8000/calendar/reminders/read/1
-Accept: application/json
+{"description":"kitchen supplies","due_date":"2024-08-12 15:01:00","status":"paid","frequency":"monthly","reminder_dates":["2024-08-12 15:01:00"]}
 
 ###
 
-PUT 127.0.0.1:8000/calendar/reminders/update/1
+GET {{rooturl}}/calendar/reminders/read/3
+Authorization: Bearer {{token}}
 Accept: application/json
 
-{"description":"cafeteria","due_date":"2024-08-12 15:01:00","status":"pending","frequency":"weekly","reminder_dates":["2024-10-12 15:01:10"]}
+
+###
+PUT {{rooturl}}/calendar/reminders/update/3
+Authorization: Bearer {{token}}
+Accept: application/json
+
+{"description":"man man"}
+
 
 
 ####-------reminder end
 ####--calendere events
-POST 127.0.0.1:8000/calendar/calendar-events/create
+
+POST {{rooturl}}/calendar/calendar-events/create
+Authorization: Bearer {{token}}
 Accept: application/json
 
-{"title":"Gravity Concert", "description":"Doozi Songs Perform live", "start_date": "2024-08-12 15:01:00", "end_date":"2024-09-12 15:01:00", "event_type": "income"}
+{"title":"Jinga man Concert", "description":"Doozi Songs Perform live", "start_date": "2024-08-12 15:01:00", "end_date":"2024-09-12 15:01:00", "event_type": "income"}
 
 
 ###
-GET 127.0.0.1:8000/calendar/calendar-events/read/1
+
+GET {{rooturl}}/calendar/calendar-events/read
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+GET {{rooturl}}/calendar/calendar-events/read/1
+Authorization: Bearer {{token}}
 Accept: application/json
 
 
-###
-GET 127.0.0.1:8000/calendar/calendar-events/read
+####
+PUT {{rooturl}}/calendar/calendar-events/update/1
+Authorization: Bearer {{token}}
 Accept: application/json
 
-
-###
-PUT 127.0.0.1:8000/calendar/calendar-events/update/1
-Accept: application/json
-
-{"title":"Nwagi Concert", "description":"baby live", "start_date": "2024-08-12 15:01:00", "end_date":"2024-09-12 15:01:00", "event_type": "income"}
-
-###
+{"title":"Nwagi Concert"}
